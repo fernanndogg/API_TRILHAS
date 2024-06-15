@@ -13,5 +13,33 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model Users {
+  id                     String   @id @default(auto()) @map("_id") @db.ObjectId
+  nome                   String
+  email                  String   @unique
+  usuario                String   @unique
+  senha                  String
+  idade                  Int
+  genero                 Genero
+  nivelDeConhecimento    NivelDeConhecimento
+  motivoDeEstudarFinancas MotivoDeEstudarFinancas
+}
 
+enum Genero {
+  MASCULINO
+  FEMININO
+  NAO_INFORMAR
+}
 
+enum NivelDeConhecimento {
+  NADA
+  BASICO
+  INTERMEDIARIO
+  AVANCADO
+}
+
+enum MotivoDeEstudarFinancas {
+  LIBERDADE_FINANCEIRA
+  COMPRA_DE_PATRIMONIO
+  INVESTIR_EM_MIM_MESMO
+}
