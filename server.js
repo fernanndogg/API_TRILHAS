@@ -44,7 +44,7 @@ app.post('/user/register', async (req, res) => {
     }
 });
 
-// Rota Cadastro
+// Rota de login
 
 app.post('/user/login', async (req, res) => {
 
