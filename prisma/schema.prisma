@@ -15,31 +15,31 @@ datasource db {
 
 model Users {
   id                     String   @id @default(auto()) @map("_id") @db.ObjectId
-  nome                   String
+  name                   String
   email                  String   @unique
-  usuario                String   @unique
-  senha                  String
-  idade                  Int
-  genero                 Genero
-  nivelDeConhecimento    NivelDeConhecimento
-  motivoDeEstudarFinancas MotivoDeEstudarFinancas
+  username               String   @unique
+  password               String
+  age                    Int
+  gender                 Gender
+  knowledgeLevel         knowledgeLevel
+  reasonsWhy             reasonsWhy
 }
 
-enum Genero {
-  MASCULINO
-  FEMININO
-  NAO_INFORMAR
+enum Gender {
+  MALE
+  FEMALE
+  OTHER
 }
 
-enum NivelDeConhecimento {
-  NADA
-  BASICO
-  INTERMEDIARIO
-  AVANCADO
+enum knowledgeLevel {
+  NOTHING
+  BASIC
+  INTERMEDIARY
+  AVANCED
 }
 
-enum MotivoDeEstudarFinancas {
-  LIBERDADE_FINANCEIRA
-  COMPRA_DE_PATRIMONIO
-  INVESTIR_EM_MIM_MESMO
+enum reasonsWhy {
+  FINANCIAL_FREEDOM
+  BUY_PATRIMONY
+  INVEST_MYSELF
 }
