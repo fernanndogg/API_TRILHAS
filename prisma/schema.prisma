@@ -21,8 +21,8 @@ model Users {
   password               String
   age                    Int
   gender                 Gender
-  knowledgeLevel         knowledgeLevel
-  reasonsWhy             reasonsWhy
+  knowledgeLevel         KnowledgeLevel
+  reasonsWhy             ReasonsWhy
 }
 
 enum Gender {
@@ -31,14 +31,14 @@ enum Gender {
   OTHER
 }
 
-enum knowledgeLevel {
+enum KnowledgeLevel {
   NOTHING
   BASIC
   INTERMEDIARY
   AVANCED
 }
 
-enum reasonsWhy {
+enum ReasonsWhy {
   FINANCIAL_FREEDOM
   BUY_PATRIMONY
   INVEST_MYSELF
