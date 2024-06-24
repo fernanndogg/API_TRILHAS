@@ -6,8 +6,8 @@ import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
 const app = express();
-const PORT = process.env.PORT || 3000;
-const JWT_SECRET = 'Hsijq5wi3urm1xz4opaspmd'; // Melhorar isso com variáveis de ambiente
+const PORT = process.env.PORT || 7000;
+const JWT_SECRET = process.env.JWT_SECRET || 'Hsijq5wi3urm1xz4opaspmd'; // Use variáveis de ambiente para segurança
 
 app.use(cors());
 app.use(express.json());
@@ -34,8 +34,10 @@ function authenticateToken(req, res, next) {
 app.post('/user/register', async (req, res) => {
   const { name, username, age, email, gender, password, knowledgeLevel, reasonsWhy } = req.body;
 
-  const hashedPassword = await bcrypt.hash(password, 10);
+  console.log('Dados recebidos:', req.body); // Log dos dados recebidos
 
+  try {
+    const hashedPassword = await bcrypt.hash(password, 10);
     const user = await prisma.users.create({
       data: {
         name,
@@ -49,15 +51,18 @@ app.post('/user/register', async (req, res) => {
       },
     });
     res.status(201).json({ message: 'User criado' });
-  } 
-);
+  } catch (error) {
+    console.error('Erro ao criar usuário:', error); // Log do erro
+    res.status(500).json({ error: 'Erro ao criar usuário' });
+  }
+});
 
 // Rota de login (não precisa de autenticação)
 app.post('/user/login', async (req, res) => {
   const { email, password } = req.body;
 
   if (!email || !password) {
-    return res.status(400).json({ error: 'Email and password are required' });
+    return res.status(400).json({ error: 'Email e senha são obrigatórios' });
   }
 
   try {
@@ -75,8 +80,8 @@ app.post('/user/login', async (req, res) => {
 
     res.status(200).json({ message: 'Logado', token });
   } catch (error) {
-    console.log(error);
-    res.status(500).json({ error: 'Internal server error' });
+    console.error('Erro ao fazer login:', error); // Log do erro
+    res.status(500).json({ error: 'Erro interno do servidor' });
   }
 });
 
